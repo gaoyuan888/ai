@@ -1,0 +1,2 @@
+model_checkpoint_path: "generate_model.ckpt"
+all_model_checkpoint_paths: "generate_model.ckpt"
