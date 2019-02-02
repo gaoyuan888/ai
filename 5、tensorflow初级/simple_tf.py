@@ -3,7 +3,7 @@ import numpy as np
 
 
 # 用 NumPy 随机生成 100 个数据
-x_data = np.float32(np.random.rand(2, 100))
+x_data = np.float32(np.random.rand(2, 100))# 两行100列
 y_data = np.dot([0.100, 0.200], x_data) + 0.300
 
 # 构造一个线性模型
