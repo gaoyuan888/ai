@@ -32,10 +32,10 @@ with tf.Session() as sess:
             _, c = sess.run([optimizer, cost], feed_dict={x_data: batch_xs, y_data: batch_ys})
             avg_cost += c / total_batch
         if (epoch + 1) % 10 == 0:
-            print "Epoch:", '%04d' % (epoch + 1), "cost=", "{:.9f}".format(avg_cost)
+            print ("Epoch:", '%04d' % (epoch + 1), "cost=", "{:.9f}".format(avg_cost))
 
             # 模型测试
 correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y_data, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print "Accuracy:", accuracy.eval({x_data: train_data.test.images, y_data: train_data.test.labels})
+print ("Accuracy:", accuracy.eval({x_data: train_data.test.images, y_data: train_data.test.labels}))
 
