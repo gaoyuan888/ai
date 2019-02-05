@@ -8,11 +8,11 @@ mnist = input_data.read_data_sets('./MNIST_data', one_hot=True)
 x = tf.placeholder(tf.float32, shape=[None, 784])
 y_ = tf.placeholder(tf.float32, shape=[None, 10])
 
-x_image = tf.reshape(x, [-1, 28, 28, 1])
+x_image = tf.reshape(x, [-1, 28, 28, 1])# -1代表根据其他维度推测当前维度
 
-W_conv1 = tf.Variable(tf.truncated_normal([5, 5, 1, 32], stddev=0.1))
+W_conv1 = tf.Variable(tf.truncated_normal([5, 5, 1, 32], stddev=0.1)) # 5*5的卷积核（3*3的比较好），乘数为1，出口有32个卷积核，32个卷积核卷积不同特征，每一个代表不同的特征
 b_conv1 = tf.constant(0.1, shape=[32])
-
+# relu函数简单，但是求导没有损失，并且只要层数多，relu函数能够你和的形状也非常非常多。
 h_conv1 = tf.nn.relu(tf.nn.conv2d(x_image, W_conv1, strides=[1, 1, 1, 1], padding='SAME') + b_conv1)
 h_pool1 = tf.nn.max_pool(h_conv1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
@@ -36,7 +36,7 @@ b_fc2 = tf.constant(0.1, shape=[10])
 
 y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv))
-train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)# 优化器是试出来的。
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
 prediction = tf.argmax(y_conv, 1)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
